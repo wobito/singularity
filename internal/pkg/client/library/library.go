@@ -118,7 +118,7 @@ func DownloadImage(ctx context.Context, c *scslibrary.Client, imagePath, arch st
 	}
 
 	// call library client to download image
-	if err := c.ConcurrentDownloadImage(ctx, f, arch, libraryRef.Path, tag, &spec, pb); err != nil {
+	if err := c.DownloadImage(ctx, f, arch, libraryRef.Path, tag, &spec, pb); err != nil {
 		// Delete incomplete image file in the event of failure
 		// we get here e.g. if the context is canceled by Ctrl-C
 		sylog.Debugf("Cleaning up incomplete download: %s", imagePath)

@@ -174,13 +174,14 @@ func init() {
 		cmdManager.RegisterSubCmd(RemoteCmd, RemoteStatusCmd)
 		cmdManager.RegisterSubCmd(RemoteCmd, RemoteAddKeyserverCmd)
 		cmdManager.RegisterSubCmd(RemoteCmd, RemoteRemoveKeyserverCmd)
+		cmdManager.RegisterSubCmd(RemoteCmd, RemoteGetPasswordCmd)
 
 		// default location of the remote.yaml file is the user directory
 		cmdManager.RegisterFlagForCmd(&remoteConfigFlag, RemoteCmd)
 		// use tokenfile to log in to a remote
-		cmdManager.RegisterFlagForCmd(&remoteTokenFileFlag, RemoteLoginCmd, RemoteAddCmd)
+		cmdManager.RegisterFlagForCmd(&remoteTokenFileFlag, RemoteLoginCmd, RemoteAddCmd, RemoteGetPasswordCmd)
 		// add --global flag to remote add/remove/use commands
-		cmdManager.RegisterFlagForCmd(&remoteGlobalFlag, RemoteAddCmd, RemoteRemoveCmd, RemoteUseCmd)
+		cmdManager.RegisterFlagForCmd(&remoteGlobalFlag, RemoteAddCmd, RemoteRemoveCmd, RemoteUseCmd, RemoteGetPasswordCmd)
 		// add --insecure, --no-login flags to add command
 		cmdManager.RegisterFlagForCmd(&remoteNoLoginFlag, RemoteAddCmd)
 		cmdManager.RegisterFlagForCmd(&remoteAddInsecureFlag, RemoteAddCmd)
@@ -457,6 +458,28 @@ var RemoteRemoveKeyserverCmd = &cobra.Command{
 	Short:   docs.RemoteRemoveKeyserverShort,
 	Long:    docs.RemoteRemoveKeyserverLong,
 	Example: docs.RemoteRemoveKeyserverExample,
+
+	DisableFlagsInUseLine: true,
+}
+
+// RemoteGetPasswordCmd singularity remote get-password
+var RemoteGetPasswordCmd = &cobra.Command{
+	Args: cobra.ExactArgs(0),
+	Run: func(cmd *cobra.Command, args []string) {
+		libraryConfig, err := getLibraryClientConfig("")
+		if err != nil {
+			sylog.Fatalf("%s", err)
+		}
+
+		if err := singularity.RemoteGetPassword(remoteConfig, libraryConfig); err != nil {
+			sylog.Fatalf("%s", err)
+		}
+	},
+
+	Use:     docs.RemoteGetPasswordUse,
+	Short:   docs.RemoteGetPasswordShort,
+	Long:    docs.RemoteGetPasswordLong,
+	Example: docs.RemoteGetPasswordExample,
 
 	DisableFlagsInUseLine: true,
 }

@@ -59,7 +59,7 @@ const (
 	RemoteRemoveUse   string = `remove [remove options...] <remote_name>`
 	RemoteRemoveShort string = `Remove an existing singularity remote endpoint`
 	RemoteRemoveLong  string = `
-  The 'remote remove' command allows you to remove an existing remote endpoint 
+  The 'remote remove' command allows you to remove an existing remote endpoint
   from the list of potential endpoints to use.`
 	RemoteRemoveExample string = `
   $ singularity remote remove SylabsCloud`
@@ -164,4 +164,17 @@ const (
   endpoint. If no endpoint is specified, it will use the default remote endpoint (SylabsCloud).`
 	RemoteRemoveKeyserverExample string = `
   $ singularity remote remove-keyserver https://keys.example.com`
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// remote get-password command
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	RemoteGetPasswordUse   string = `get-password`
+	RemoteGetPasswordShort string = `Get OCI Password`
+	RemoteGetPasswordLong  string = `
+  The 'remote get-password' command get a OCI registry
+  credentials configured for use.
+
+  The current remote is indicated by 'YES' in the 'ACTIVE' column and can be changed
+  with the 'remote use' command.`
+	RemoteGetPasswordExample string = `
+  $ singularity remote get-password`
 )
